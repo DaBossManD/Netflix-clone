@@ -30,6 +30,17 @@ jobs:
             #command to scan files
             trivy fs .
 
+      - name: Docker build and push
+        run: |
+            #run commands to build and push docker images
+            docker build --build-arg TMDB_V3_API_KEY=<c72fe1c2bb50d9395097fb82a43b1704 -t netflix .
+            docker tag netflix dabossmand213/netflix:latest
+            docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+            docker push dabossmand213/netflix:latest  
+            env:
+            DOCKER_CLI_ACI: 1
+
+
   
       # If you wish to fail your job when the Quality Gate is red, uncomment the
       # following lines. This would typically be used to fail a deployment.
